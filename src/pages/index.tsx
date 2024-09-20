@@ -1,10 +1,13 @@
 import Head from 'next/head';
 import { useFetchData } from '@/hooks/useFetchData';
+import Header from '@/components/layout/Header';
+import { Market } from '@/types/market';
+import ListItem from '@/components/market/listItem';
+import styles from '@/styles/market/List.module.scss';
+import Link from 'next/link';
 // import Image from 'next/image';
 
-import styles from '@/styles/Home.module.css';
-
-export default function Home() {
+export default function MarketList() {
   const { data, error, isLoading } = useFetchData('exchange/api/v1.0/exchange/pairs');
   return (
     <>
@@ -15,18 +18,32 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <header></header>
-        <main className={styles.main}>
+        <Header>
+          {/*<input className={styles.searchInput} />*/}
+          {/*<button>*/}
+          {/*  <Image*/}
+          {/*    src="/images/icons/dark.png"*/}
+          {/*    alt="theme toggler"*/}
+          {/*    width={28}*/}
+          {/*    height={28}*/}
+          {/*    priority*/}
+          {/*  />*/}
+          {/*</button>*/}
+        </Header>
+        <main style={{ padding: '8px', paddingTop: '56px' }}>
           {isLoading && <div>Loading...</div>}
           {error && <div>Error: </div>}
-          {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
-          {/*<Image*/}
-          {/*  src="https://nextjs.org/icons/next.svg"*/}
-          {/*  alt="Next.js logo"*/}
-          {/*  width={180}*/}
-          {/*  height={38}*/}
-          {/*  priority*/}
-          {/*/>*/}
+          {data && (
+            <ul className={styles.list}>
+              {data.data.map((item: Market) => (
+                <li key={item.pair_id} className={styles.listItem}>
+                  <Link href={`/market/${item.pair_id}`}>
+                    <ListItem market={item} />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </main>
       </div>
     </>
