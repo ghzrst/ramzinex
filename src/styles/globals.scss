@@ -6,20 +6,12 @@
   src: url('/fonts/IRANSansXFaNum-Regular.woff') format('woff');
 }
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --white: #ffffff;
   --grey-dark: #41474F;
   --grey-medium: #8F9398;
   --grey-light: #BCBEC1;
   --font-base: 14px;
   --font-sm: 12px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 html,
@@ -31,16 +23,19 @@ body {
   overflow-x: hidden;
   font-family: IRANSans;
   font-size: var(--font-base);
-  color: var(--grey-dark);
+
   @media only screen and (max-width: 640px){
     font-size: var(--font-sm);
   }
+  &.light-theme {
+    background-color: var(--white);
+    color: var(--grey-dark);
+  }
 
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
+  &.dark-theme {
+    background-color: var(--grey-dark);
+    color: var(--grey-light);
+  }
 }
 
 * {
