@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { ButtonProps } from '@/types/uikit/button';
 
-import styles from '@/styles/uikit/Button.module.scss';
+import styles from '@/styles/components/uikit/Button.module.scss';
 
 const Button: React.FC<ButtonProps> = ({ title, block = false, type = 'flat', onClick, icon }) => {
   let className = styles.btn;

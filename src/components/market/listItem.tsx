@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/market/ListItem.module.scss';
+import styles from '@/styles/components/market/ListItem.module.scss';
 import Image from 'next/image';
 import { Market } from '@/types/api/market';
 

@@ -3,12 +3,27 @@ import { useFetchData } from '@/hooks/useFetchData';
 import Header from '@/components/layout/Header';
 import { Market } from '@/types/api/market';
 import ListItem from '@/components/market/listItem';
-import styles from '@/styles/market/List.module.scss';
+import styles from '@/styles/components/market/List.module.scss';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 // import Image from 'next/image';
 
 export default function MarketList() {
   const { data, error, isLoading } = useFetchData('exchange/api/v1.0/exchange/pairs');
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>('');
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 300);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm]);
+
+  const filteredData = data?.data?.filter((item: Market) =>
+    item.name.fa.includes(debouncedSearchTerm),
+  );
   return (
     <>
       <Head>
@@ -18,24 +33,14 @@ export default function MarketList() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <Header>
-          {/*<input className={styles.searchInput} />*/}
-          {/*<button>*/}
-          {/*  <Image*/}
-          {/*    src="/images/icons/dark.png"*/}
-          {/*    alt="theme toggler"*/}
-          {/*    width={28}*/}
-          {/*    height={28}*/}
-          {/*    priority*/}
-          {/*  />*/}
-          {/*</button>*/}
-        </Header>
-        <main style={{ padding: '8px', paddingTop: '56px' }}>
+        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <main style={{ padding: '8px', paddingTop: '52px' }}>
           {isLoading && <div>Loading...</div>}
           {error && <div>Error: </div>}
+
           {data && (
             <ul className={styles.list}>
-              {data.data.map((item: Market) => (
+              {filteredData.map((item: Market) => (
                 <li key={item.pair_id} className={styles.listItem}>
                   <Link href={`/market/${item.pair_id}`}>
                     <ListItem market={item} />
