@@ -1,0 +1,45 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 8px;
+  background-color: var(--background-color);
+  .searchContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+
+    .searchInput {
+      flex-grow: 1;
+      height: 2.5rem;
+      border-radius: 8px;
+      background-color: transparent;
+      border: 1px solid var(--text-color);
+      outline: none;
+      padding: 8px;
+      font-family: IRANSans;
+      &::placeholder {
+        color: var(--text-color);
+      }
+    }
+  }
+  .sortContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    .sortItems {
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+}

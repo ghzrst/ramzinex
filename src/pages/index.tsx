@@ -1,29 +1,41 @@
 import Head from 'next/head';
 import { useFetchData } from '@/hooks/useFetchData';
-import Header from '@/components/layout/Header';
+import Header from '@/components/market/Header';
 import { Market } from '@/types/api/market';
 import ListItem from '@/components/market/listItem';
 import styles from '@/styles/components/market/List.module.scss';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-// import Image from 'next/image';
+import Loading from '@/components/uikit/Loading';
 
 export default function MarketList() {
   const { data, error, isLoading } = useFetchData('exchange/api/v1.0/exchange/pairs');
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [sortBy, setSortBy] = useState<string>('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>('');
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
     }, 300);
+
     return () => {
       clearTimeout(handler);
     };
   }, [searchTerm]);
 
+  if (isLoading) return <Loading text="در حال بارگزاری..." />;
   const filteredData = data?.data?.filter((item: Market) =>
     item.name.fa.includes(debouncedSearchTerm),
   );
+  if (sortBy) {
+    filteredData.sort((a: Market, b: Market) => {
+      if (sortBy === 'name') {
+        return a.name.fa.localeCompare(b.name.fa);
+      } else {
+        return +a.buy - +b.buy;
+      }
+    });
+  }
   return (
     <>
       <Head>
@@ -33,11 +45,9 @@ export default function MarketList() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <main style={{ padding: '8px', paddingTop: '52px' }}>
-          {isLoading && <div>Loading...</div>}
+        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} setSortBy={setSortBy} />
+        <main style={{ padding: '8px', paddingTop: '72px' }}>
           {error && <div>Error: </div>}
-
           {data && (
             <ul className={styles.list}>
               {filteredData.map((item: Market) => (
