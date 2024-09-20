@@ -1,9 +1,11 @@
 import Head from 'next/head';
-import Image from 'next/image';
+import { useFetchData } from '@/hooks/useFetchData';
+// import Image from 'next/image';
 
 import styles from '@/styles/Home.module.css';
 
 export default function Home() {
+  const { data, error, isLoading } = useFetchData('exchange/api/v1.0/exchange/pairs');
   return (
     <>
       <Head>
@@ -13,14 +15,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
+        <header></header>
         <main className={styles.main}>
-          <Image
-            src="https://nextjs.org/icons/next.svg"
-            alt="Next.js logo"
-            width={180}
-            height={38}
-            priority
-          />
+          {isLoading && <div>Loading...</div>}
+          {error && <div>Error: </div>}
+          {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+          {/*<Image*/}
+          {/*  src="https://nextjs.org/icons/next.svg"*/}
+          {/*  alt="Next.js logo"*/}
+          {/*  width={180}*/}
+          {/*  height={38}*/}
+          {/*  priority*/}
+          {/*/>*/}
         </main>
       </div>
     </>
