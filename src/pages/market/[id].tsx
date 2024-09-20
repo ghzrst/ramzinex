@@ -2,12 +2,13 @@ import Head from 'next/head';
 import { useFetchData } from '@/hooks/useFetchData';
 import { useRouter } from 'next/router';
 import ItemDetail from '@/components/market/ItemDetail';
-import { useMemo } from 'react';
+import Loading from '@/components/uikit/Loading';
 
 export default function Market() {
   const router = useRouter();
   const id = router.query.id;
   const { data, error, isLoading } = useFetchData(`exchange/api/v1.0/exchange/pairs/${id}`);
+  if (isLoading) return <Loading text="در حال بارگزاری..." />;
   return (
     <>
       <Head>
@@ -17,8 +18,7 @@ export default function Market() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <main style={{ padding: '8px' }}>
-          {isLoading && <div>Loading...</div>}
+        <main className="main">
           {error && <div>Error: </div>}
           {data && (
             <div>

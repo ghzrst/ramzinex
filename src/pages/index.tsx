@@ -46,7 +46,7 @@ export default function MarketList() {
       </Head>
       <div>
         <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} setSortBy={setSortBy} />
-        <main style={{ padding: '8px', paddingTop: '72px' }}>
+        <main className="main">
           {error && <div>Error: </div>}
           {data && (
             <ul className={styles.list}>
