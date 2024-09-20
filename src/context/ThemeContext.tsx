@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from 'react';
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -23,9 +17,7 @@ export const useTheme = () => {
   return context;
 };
 
-export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
@@ -38,13 +30,13 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
     } else {
       setTheme('light');
     }
-    document.body.className = `${savedTheme}-theme`;
+    document.documentElement.setAttribute('data-theme', savedTheme);
   }, []);
 
   const updateTheme = (newTheme: Theme) => {
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
-    document.body.className = `${newTheme}-theme`;
+    document.documentElement.setAttribute('data-theme', newTheme);
   };
 
   return (

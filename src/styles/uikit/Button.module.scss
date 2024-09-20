@@ -8,15 +8,15 @@
   align-items: center;
   gap: 0.5rem;
   transition: all 0.3s ease;
-  color: var(--grey-dark);
+  color: inherit;
   background-color: transparent;
-  height: 4rem;
+  height: 2.5rem;
   font-family: IRANSans;
   &.btnBlock {
     width: 100%;
   }
   &.btnOutline {
-    border: 1px solid var(--grey-dark);
+    border: 1px solid var(--text-color);
   }
   &.btnLink {
     border: none;
