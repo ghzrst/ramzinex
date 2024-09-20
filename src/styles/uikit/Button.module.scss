@@ -1,0 +1,31 @@
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  color: var(--grey-dark);
+  background-color: transparent;
+  height: 4rem;
+  font-family: IRANSans;
+  &.btnBlock {
+    width: 100%;
+  }
+  &.btnOutline {
+    border: 1px solid var(--grey-dark);
+  }
+  &.btnLink {
+    border: none;
+    text-decoration: underline;
+    padding: 0;
+  }
+  &.btnIcon {
+    display: inline-block;
+    width: 2rem;
+  }
+}
+

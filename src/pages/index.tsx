@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useFetchData } from '@/hooks/useFetchData';
 import Header from '@/components/layout/Header';
-import { Market } from '@/types/market';
+import { Market } from '@/types/api/market';
 import ListItem from '@/components/market/listItem';
 import styles from '@/styles/market/List.module.scss';
 import Link from 'next/link';

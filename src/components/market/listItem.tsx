@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../styles/market/ListItem.module.scss';
 import Image from 'next/image';
-import { Market } from '@/types/market';
+import { Market } from '@/types/api/market';
 
 interface MarketItemsProps {
   market: Market;
